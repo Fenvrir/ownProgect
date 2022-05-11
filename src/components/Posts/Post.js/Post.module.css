@@ -1,0 +1,17 @@
+.Post{
+    display: flex;
+    padding:  15px;
+    border: 2px solid #fff;
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 20px;
+}
+.name{
+    font-weight: bold;
+}
+
+button{
+    font-size: 25px;
+}

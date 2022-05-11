@@ -1,18 +1,14 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import { replaceCard } from '../Redux/SimpleDND-reducer';
 import './DragAndDrop.scss';
 
 const color = 'rgba(0, 0, 0, 0.682)';
 
-function DragAndDrop() {
+function DragAndDrop(props) {
 
-  const [cardList, setCardList] = useState([
-    { id: 1, order: 3, text: 'Карточка 3' },
-    { id: 2, order: 2, text: 'Карточка 2' },
-    { id: 3, order: 1, text: 'Карточка 1' },
-    { id: 4, order: 4, text: 'Карточка 4' },
-  ]);
   const [currentCard, setCurrentCurd] = useState();
-  window.cards = cardList;
+  
 
   const dragStartHandler = (ev, card) => {
     setCurrentCurd(card);
@@ -33,15 +29,7 @@ function DragAndDrop() {
     ev.preventDefault();
     ev.target.style.background = color;
 
-    setCardList(cardList.map(c => {
-      if (c.id === card.id) {
-        return { ...c, order: currentCard.order }
-      }
-      if (c.id === currentCard.id) {
-        return { ...c, order: card.order }
-      }
-      return c;
-    }))
+   props.replaceCard(currentCard, card);
   }
 
   const sortCard = (a, b) => {
@@ -57,7 +45,7 @@ function DragAndDrop() {
         <h1>DragAndDrop</h1>
       </div>
       <div className='Board'>
-        {cardList.sort(sortCard).map(card => {
+        {props.cards.sort(sortCard).map(card => {
           return <div
             onDragStart={ev => dragStartHandler(ev, card)}
             onDragEnd={ev => dragEndHandler(ev)}
@@ -74,4 +62,8 @@ function DragAndDrop() {
   )
 }
 
-export default DragAndDrop
+const mapStateToProps = (state) => ({
+  cards: state.simpleDnD.cards
+})
+
+export default connect(mapStateToProps, {replaceCard})(DragAndDrop)
