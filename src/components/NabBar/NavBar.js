@@ -7,7 +7,7 @@ const NavBar = (props) => {
             <Link to='DragAndDrop'>Drag and drop</Link>
             <Link className='isDisabled' to='#'>Todo List</Link>
             <Link to='Posts'>Posts</Link>
-            <Link className='isDisabled' to='#'>Crypto tracker</Link>
+            <Link to='Slider'>Slider</Link>
         </div>
     )
 }
